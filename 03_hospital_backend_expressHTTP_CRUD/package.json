@@ -1,0 +1,16 @@
+{
+  "name": "hospital-backend-express",
+  "version": "1.0.0",
+  "description": "A hospital management backend API using Express.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
