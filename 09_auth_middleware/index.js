@@ -5,6 +5,16 @@ const jwt = require("jsonwebtoken")
 
 const JWT_SECRET = "dheerajp45";
 const users = [];
+function printDateTime() {
+  const now = new Date();
+
+  const date = now.toLocaleDateString();
+  const time = now.toLocaleTimeString();
+
+  return `${date} -> ${time}`;
+}
+
+
 
 function auth(req,res,next){
     const token = req.headers.token;
@@ -27,7 +37,11 @@ function auth(req,res,next){
   
     
 }
-app.post("/signup",function (req,res){
+function logger(req,res,next){
+    console.log(`${req.method}  request came on ${printDateTime()}`);
+    next();
+}
+app.post("/signup",logger,function (req,res){
     const username = req.body.username;
 const password = req.body.password;
 let userExists = false;
@@ -57,7 +71,7 @@ else {
 
 
 
-app.post("/signin",function (req,res){
+app.post("/signin",logger,function (req,res){
 const username = req.body.username;
 const password = req.body.password;
 
@@ -84,7 +98,7 @@ else{
 console.log(users);
 })
 
-app.get("/me",auth,function (req,res){
+app.get("/me",logger,auth,function (req,res){
 // const token = req.headers.token;
 // const decoded_info = jwt.verify(token,JWT_SECRET);
 
