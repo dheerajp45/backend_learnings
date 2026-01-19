@@ -47,3 +47,29 @@ res.json({
 });
 
 app.listen(3000);
+
+
+
+
+
+// app.post('/sum/:firstArg/:secondArg',function(req,res){
+//     const a = parseInt(req.params.firstArg);
+//     const b = parseInt(req.params.secondArg);
+//     // http://localhost:3000/sum/5/6
+//     ans = a + b;
+// res.json({
+//     ans : a + b
+// })
+// })
+
+// app.post('/sub',function(req,res){
+//     const c= parseInt(req.query.c);
+// const d= parseInt(req.query.d);
+// // http://localhost:3000/sub/?c=5&d=2
+// ans = c - d;
+// res.json({
+//     ans : c - d
+// })
+// })
+
+//....
