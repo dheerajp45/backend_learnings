@@ -10,7 +10,7 @@ app.use(function(req,res,next) {
 })
 app.get("/sum/:firstArg/:secondArg", function(req, res) {
 // const a= parseInt(req.query.a);
-// const b= parseInt(req.query.b);
+// const b= parseInt(req.query.b); ---> ?b=123
 const a = parseInt(req.params.firstArg);
 const b = parseInt(req.params.secondArg);
 ans = a + b;
