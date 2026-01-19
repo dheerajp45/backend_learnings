@@ -16,6 +16,22 @@ app.post("/sum",function(req,res){
         answer: a+b
     })
 })
+
+app.post("/sub",function(req,res){
+    const a = parseInt(req.body.a);
+    const b = parseInt(req.body.b);
+    res.json({
+        answer: a-b
+    })
+})
+
+app.post("/mul",function(req,res){
+    const a = parseInt(req.body.a);
+    const b = parseInt(req.body.b);
+    res.json({
+        answer: a*b
+    })
+})
 // 
 app.listen(3000,function(){
     console.log(`
@@ -26,54 +42,3 @@ app.listen(3000,function(){
         port 3000`);
     
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// app.post('/sum/:firstArg/:secondArg',function(req,res){
-//     const a = parseInt(req.params.firstArg);
-//     const b = parseInt(req.params.secondArg);
-//     // http://localhost:3000/sum/5/6
-//     ans = a + b;
-// res.json({
-//     ans : a + b
-// })
-// })
-
-// app.post('/sub',function(req,res){
-//     const c= parseInt(req.query.c);
-// const d= parseInt(req.query.d);
-// // http://localhost:3000/sub/?c=5&d=2
-// ans = c - d;
-// res.json({
-//     ans : c - d
-// })
-// })

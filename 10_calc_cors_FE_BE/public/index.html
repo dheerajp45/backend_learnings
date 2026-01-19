@@ -8,20 +8,53 @@
 
 </head>
 <body>
-    <input type="text" placeholder="first value enter" id="a">
-    <input type="text" placeholder="second value enter" id="b">
-    <button onclick="sum()">submit</button>
+    <input type="text" placeholder="first value enter" id="sum_first">
+    <input type="text" placeholder="second value enter" id="sum_second">
+    <button onclick="sum()">submit for the sum</button>
+    <div id="sum_result"></div>
+<br><br><hr>
+      <input type="text" placeholder="first value enter" id="sub_first">
+    <input type="text" placeholder="second value enter" id="sub_second">
+    <button onclick="sub()">submit for the sub</button>
+     <div id="sub_result"></div>
 
-
+<br><br><hr>
+      <input type="text" placeholder="first value enter" id="mul_first">
+    <input type="text" placeholder="second value enter" id="mul_second">
+    <button onclick="mul()">submit for the sub</button>
+     <div id="mul_result"></div>
 
     <script>
-        function sum(){
-            const a= document.getElementById('a').value
-            const b = document.getElementById('b').value
-            axios.post("http://localhost:3000/sum",{
+        async function sum(){
+            const a= document.getElementById('sum_first').value
+            const b = document.getElementById('sum_second').value
+            const response = await axios.post("http://localhost:3000/sum",{
                 a,
                 b
             })
+            const sumResultDiv = document.getElementById('sum_result');
+            sumResultDiv.innerHTML=`<h1>${response.data.answer}</h1>`
+        }
+
+async function sub(){
+            const a= document.getElementById('sub_first').value
+            const b = document.getElementById('sub_second').value
+            const response = await axios.post("http://localhost:3000/sub",{
+                a,
+                b
+            })
+            const subResultDiv = document.getElementById('sub_result');
+            subResultDiv.innerHTML=`<h1>${response.data.answer}</h1>`
+        }
+      async function mul(){
+            const a= document.getElementById('mul_first').value
+            const b = document.getElementById('mul_second').value
+            const response = await axios.post("http://localhost:3000/mul",{
+                a,
+                b
+            })
+            const mulResultDiv = document.getElementById('mul_result');
+            mulResultDiv.innerHTML=`<h1>${response.data.answer}</h1>`
         }
     </script>
 </body>
