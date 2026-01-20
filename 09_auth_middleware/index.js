@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const jwt = require("jsonwebtoken")
-
 const JWT_SECRET = "dheerajp45";
+
 const users = [];
 function printDateTime() {
   const now = new Date();
@@ -39,10 +39,12 @@ function auth(req,res,next){
   
     
 }
+
 function logger(req,res,next){
     console.log(`${req.method}  request came on ${printDateTime()}`);
     next();
 }
+
 app.post("/signup",logger,function (req,res){
     const username = req.body.username;
 const password = req.body.password;
@@ -70,8 +72,6 @@ else {
     console.log(users);
 }
 })
-
-
 
 app.post("/signin",logger,function (req,res){
 const username = req.body.username;
