@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 app.use(express.json());
 const JWT_SECRET = "dheerajp45";
 const users =[];
-const todos = [];
+let todos = [];
 let todoId = 0;
 
 function auth(req,res,next){
@@ -83,6 +83,7 @@ for (let i = 0; i < users.length; i++) {
             message:"invalid username or pwd"
         })
     }
+
     console.log(users);
     
 })
@@ -135,8 +136,18 @@ app.put('/todos/:id',auth,function(req,res){
 } else {
     res.status(404).json({ message: "Todo not found or not yours." });
 }
+})
 
-
+app.delete("/todos/:id",auth,function(req,res){
+    username= req.username;
+    const initialLength = todos.length;
+    const id = parseInt(req.params.id);
+    todos=todos.filter(todo=> todo.id!==id);
+      if (todos.length < initialLength) {
+        res.json({ message: "Todo deleted successfully." });
+    } else {
+        res.status(404).json({ message: "Todo not found or not yours." });
+    }
 })
 
 app.listen(PORT, () => {
