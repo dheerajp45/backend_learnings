@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt")
 const express = require('express')
 const jwt = require('jsonwebtoken');
 const { default: mongoose } = require('mongoose');
@@ -36,14 +37,31 @@ const email=req.body.username;
 const password=req.body.password;
 const name=req.body.name;
 
+let errorThrown = false;
+try {
+    const hashedPassword = await bcrypt.hash(password, 5);
+console.log(hashedPassword);
+
 await UserModel.create({
     email: email,
-    password: password,
+    password:hashedPassword,
     name: name
 })
+} catch (e) {
+    // console.log("error while adding in the DB");
+    res.json({
+    message: "user already exists"
+})
+errorThrown = true;
+}
+if(!errorThrown){
 res.json({
     message: "your are signed up!!!"
 })
+}
+
+
+
 
 })
 
@@ -52,12 +70,18 @@ app.post("/signin",async function(req,res){
 const password=req.body.password;
 
 const user = await UserModel.findOne({
-    email: email,
-    password: password
+    email: email
 })
+
+if(!user){
+    res.status(403).json({
+        message:"user does not exist in the DB"
+    })
+}
+const passwordMatch =await bcrypt.compare(password,user.password)
 console.log(user);
 
-if (user) {
+if (passwordMatch) {
     const token=jwt.sign({
         id: user._id.toString()
     },JWT_SECRET);
