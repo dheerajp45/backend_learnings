@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt")
+const {z} = require("zod");
 const express = require('express')
 const jwt = require('jsonwebtoken');
 const { default: mongoose } = require('mongoose');
@@ -33,9 +34,34 @@ function auth(req,res,next){
 
 
 app.post("/signup", async function(req,res){
+
+    const requiredBody = z.object({
+        email:z.string().min(3).max(50).email(),
+        name:z.string().min(3).max(30),
+        password:z.string().min(3).max(30)
+    })
+// const parsedData = requiredBody.parse(req.body);
+const parsedDataWithSuccess = requiredBody.safeParse(req.body);
+
+if(!parsedDataWithSuccess.success){
+    res.json({
+        message:"incorrect Format",
+        error: parsedDataWithSuccess.error
+    })
+    return
+}
+
 const email=req.body.username;
 const password=req.body.password;
 const name=req.body.name;
+
+// if(typeof email !== String || email.length<5 || !email.includes("@")){
+//     res.json({
+//         message:"email incorrect"
+//     })
+// }
+
+
 
 let errorThrown = false;
 try {
